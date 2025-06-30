@@ -11,14 +11,17 @@ const app = express()
 app.use(helmet())
 app.use(
   cors({
-    origin:[ process.env.VITE_FRONTEND_URL || "https://freebeez-dev.vercel.app/" || "https://freebeez-dev.vercel.app/"],
+    origin:[ process.env.VITE_FRONTEND_URL || "http://localhost:5173","https://freebeez-dev.vercel.app/" ,"https://freebeez-dev-31lo.vercel.app/api"
+      
+     ],
+    optionsSuccessStatus: 200,
     credentials: true,
      methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 )
 
-// Rate limiting
+// Rate limitings
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
