@@ -11,7 +11,7 @@ const app = express()
 app.use(helmet())
 app.use(
   cors({
-    origin: process.env.VITE_FRONTEND_URL,
+    origin:[ process.env.VITE_FRONTEND_URL || "https://freebeez-dev.vercel.app/" || "https://freebeez-dev.vercel.app/"],
     credentials: true,
      methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
