@@ -24,13 +24,13 @@ const ProblemSection = () => {
         <div className="text-center mb-20">
           <div className="inline-flex items-center px-6 py-2 bg-white/80 backdrop-blur-md border border-gray-200 text-gray-800 text-sm font-semibold rounded-full shadow">
             <LightBulbIcon className="w-5 h-5 text-yellow-500 mr-2" />
-            Every Creator's Story
+            Every Users's Story
           </div>
           <h2 className="text-5xl font-extrabold mt-6 mb-4 text-gray-900 leading-tight">
             The Digital Chaos We All Know
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Most creators don't realize they're silently drowning in an ocean of disorganized resources.
+            Most user's don't realize they're silently drowning in an ocean of disorganized resources.
           </p>
         </div>
 
@@ -41,7 +41,7 @@ const ProblemSection = () => {
               icon: InboxIcon,
               color: "from-blue-500 to-cyan-500",
               description:
-                "87% of creators hoard freebies and resources: tools, templates, eBooks, icons — anything that sparks inspiration."
+                "87% of users hoard freebies and resources: tools, templates, eBooks, icons — anything that sparks inspiration."
             },
             {
               title: "Then Comes the Frustration",
