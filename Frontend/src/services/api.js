@@ -11,6 +11,10 @@ const api = axios.create({
   },
 })
 
+console.log("BASE URL IN PROD:", import.meta.env.VITE_API_URL);
+console.log("AXIOS BASE URL:", axios.defaults.baseURL);
+
+
 // Add auth token to requests
 api.interceptors.request.use(
   (config) => {
