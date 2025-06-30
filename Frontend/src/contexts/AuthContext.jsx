@@ -16,8 +16,10 @@ export const useAuth = () => {
 }
 
 // Configure axios defaults
-(axios.defaults.baseURL = import.meta.env.VITE_API_URL || "https://freebeez-dev-31lo.vercel.app/api");
-"http://localhost:5000/api";
+axios.defaults.baseURL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000/api"; // fallback if env not set
+
 
 
 export const AuthProvider = ({ children }) => {
