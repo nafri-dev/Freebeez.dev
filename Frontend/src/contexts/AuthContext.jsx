@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   // Register function
   const register = async (userData) => {
     try {
-      const response = await axios.post("/auth/register", userData)
+      const response = await axios.post("/api/auth/register", userData)
       const { token, user } = response.data
 
       setAuthToken(token)
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (credentials) => {
     try {
-      const response = await axios.post("/auth/login", credentials)
+      const response = await axios.post("/api/auth/login", credentials)
       const { token, user } = response.data
 
       setAuthToken(token)
