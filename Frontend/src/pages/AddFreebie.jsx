@@ -248,7 +248,7 @@ const AddFreebie = () => {
           : undefined,
       }
 
-      console.log("Submitting freebie data:", freebieData)
+    
       await freebiesAPI.create(freebieData)
       toast.success("Freebie added successfully!")
       navigate("/dashboard")

@@ -142,17 +142,13 @@ router.post("/", auth, async (req, res) => {
 
 router.post("/bulk", auth, async (req, res) => {
   try {
-    console.log("=== BULK CREATE DEBUG ===")
-    console.log("User ID:", req.user._id)
-    console.log("Request body type:", typeof req.body)
-    console.log("Request body:", JSON.stringify(req.body, null, 2))
-    console.log("Is array?", Array.isArray(req.body))
+
 
     // Step 1: Extract freebies from the request
     let freebiesData = req.body
     if (req.body.freebies && Array.isArray(req.body.freebies)) {
       freebiesData = req.body.freebies
-      console.log("Using req.body.freebies")
+    
     } else if (Array.isArray(req.body)) {
       console.log("Using req.body directly")
     } else {
@@ -163,7 +159,7 @@ router.post("/bulk", auth, async (req, res) => {
       })
     }
 
-    console.log("Freebies data length:", freebiesData.length)
+  
 
     // Step 2: Validate and clean each freebie
     const validFreebies = []
@@ -171,9 +167,7 @@ router.post("/bulk", auth, async (req, res) => {
 
     for (let i = 0; i < freebiesData.length; i++) {
       const freebie = freebiesData[i]
-      console.log(`\n--- Processing freebie ${i + 1} ---`)
-      console.log("Raw freebie:", freebie)
-
+   
       try {
         // Title validation
         if (!freebie.title || typeof freebie.title !== "string" || freebie.title.trim().length === 0) {
@@ -223,9 +217,6 @@ router.post("/bulk", auth, async (req, res) => {
       }
     }
 
-    console.log("\n=== VALIDATION COMPLETE ===")
-    console.log("Valid freebies count:", validFreebies.length)
-    console.log("Errors:", errors)
 
     // Step 3: Insert into DB if any valid
     if (validFreebies.length === 0) {
@@ -236,10 +227,9 @@ router.post("/bulk", auth, async (req, res) => {
       })
     }
 
-    console.log("\n=== INSERTING TO DATABASE ===")
     const insertResult = await Freebie.insertMany(validFreebies, { ordered: false })
 
-    console.log("Insert result:", insertResult.length, "freebies created")
+   
 
     res.status(201).json({
       success: true,

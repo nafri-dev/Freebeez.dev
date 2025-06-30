@@ -112,7 +112,6 @@ const OCRUpload = () => {
         .map((chunk) => chunk.trim())
         .filter((chunk) => chunk.length > 20) // Only consider substantial chunks
 
-      console.log("Text chunks:", chunks)
 
       // Only process chunks that have strong freebie indicators AND URLs
       chunks.forEach((chunk, index) => {
@@ -163,7 +162,7 @@ const OCRUpload = () => {
         }
       }
 
-      console.log("Detected freebies:", freebies)
+   
       setDetectedFreebies(freebies)
 
       if (freebies.length === 0) {
@@ -217,9 +216,7 @@ const OCRUpload = () => {
     // Validate freebies before sending
     const validFreebies = detectedFreebies.filter((freebie) => {
       const hasTitle = freebie.title && freebie.title.trim().length > 0
-      if (!hasTitle) {
-        console.log("Invalid freebie (no title):", freebie)
-      }
+    
       return hasTitle
     })
 
@@ -228,14 +225,11 @@ const OCRUpload = () => {
       return
     }
 
-    console.log("=== OCR UPLOAD: SAVING FREEBIES ===")
-    console.log("Valid freebies count:", validFreebies.length)
-    console.log("Valid freebies:", validFreebies)
 
     setSaving(true)
     try {
       const response = await freebiesAPI.bulkCreate(validFreebies)
-      console.log("OCR Upload: Backend response:", response.data)
+    
 
       if (response.data.success && response.data.total > 0) {
         toast.success(`Successfully saved ${response.data.total} freebies to your vault!`)

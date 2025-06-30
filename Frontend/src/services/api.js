@@ -11,9 +11,6 @@ const api = axios.create({
   },
 })
 
-console.log("BASE URL IN PROD:", import.meta.env.VITE_API_URL);
-console.log("AXIOS BASE URL:", axios.defaults.baseURL);
-
 
 // Add auth token to requests
 api.interceptors.request.use(
@@ -54,11 +51,7 @@ export const freebiesAPI = {
   getById: (id) => api.get(`/freebies/${id}`),
   create: (freebieData) => api.post("/freebies", freebieData),
   bulkCreate: (freebiesArray) => {
-    console.log("API: Sending bulk create request")
-    console.log("API: Data being sent:", freebiesArray)
-    console.log("API: Data type:", typeof freebiesArray)
-    console.log("API: Is array?", Array.isArray(freebiesArray))
-
+   
     // Send the array directly as the request body
     return api.post("/freebies/bulk", freebiesArray)
   },

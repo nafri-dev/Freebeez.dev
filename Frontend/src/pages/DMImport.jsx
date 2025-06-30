@@ -84,7 +84,7 @@ const DMImport = () => {
       .map((s) => s.trim())
       .filter((s) => s.length > 15) // Only consider substantial sentences
 
-    console.log("Processing sentences:", sentences)
+
 
     sentences.forEach((sentence, index) => {
       const lowerSentence = sentence.toLowerCase()
@@ -135,7 +135,7 @@ const DMImport = () => {
       }
     }
 
-    console.log("Detected freebies:", freebies)
+  
     return freebies
   }
 
@@ -196,9 +196,7 @@ const DMImport = () => {
     // Validate freebies
     const validFreebies = detectedFreebies.filter((freebie) => {
       const hasTitle = freebie.title && freebie.title.trim().length > 0
-      if (!hasTitle) {
-        console.log("Invalid freebie (no title):", freebie)
-      }
+     
       return hasTitle
     })
 
@@ -207,14 +205,11 @@ const DMImport = () => {
       return
     }
 
-    console.log("=== DM IMPORT: IMPORTING FREEBIES ===")
-    console.log("Valid freebies count:", validFreebies.length)
-    console.log("Valid freebies:", validFreebies)
-
+ 
     setImporting(true)
     try {
       const response = await freebiesAPI.bulkCreate(validFreebies)
-      console.log("DM Import: Backend response:", response.data)
+     
 
       if (response.data.success && response.data.total > 0) {
         toast.success(`Successfully imported ${response.data.total} freebies!`)

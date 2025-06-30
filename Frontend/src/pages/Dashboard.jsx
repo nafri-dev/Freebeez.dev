@@ -107,9 +107,9 @@ const Dashboard = () => {
         }
       })
 
-      console.log("Dashboard: Fetching freebies with params:", params)
+   
       const response = await freebiesAPI.getAll(params)
-      console.log("Dashboard API response:", response.data)
+  
 
       if (response.data.success) {
         setFreebies(response.data.freebies || [])
