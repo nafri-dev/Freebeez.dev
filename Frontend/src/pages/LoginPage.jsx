@@ -42,11 +42,8 @@ const LoginPage = () => {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
-            <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center">
-              <SparklesIcon className="w-8 h-8 text-white" />
-            </div>
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome back to InstaVault</h2>
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome back to Freebeez</h2>
           <p className="mt-2 text-sm text-gray-600">Sign in to your account to manage your freebies</p>
         </div>
 

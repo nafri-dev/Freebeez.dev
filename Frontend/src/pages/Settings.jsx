@@ -239,7 +239,7 @@ const Settings = () => {
           <div className="card p-6">
             <div className="flex items-center gap-2 mb-6">
               <BellIcon className="w-6 h-6 text-primary-600" />
-              <h2 className="text-xl font-semibold">Notification Preferences</h2>
+              <h2 className="text-xl font-semibold">Notification Preference (upcoming features ...)</h2>
             </div>
 
             <form onSubmit={handleProfileSubmit} className="space-y-6">
@@ -296,7 +296,7 @@ const Settings = () => {
           <div className="card p-6">
             <div className="flex items-center gap-2 mb-6">
               <CogIcon className="w-6 h-6 text-primary-600" />
-              <h2 className="text-xl font-semibold">Change Password</h2>
+              <h2 className="text-xl font-semibold">Change Password (upcoming features ...)</h2>
             </div>
 
             <form onSubmit={handlePasswordSubmit} className="space-y-6">

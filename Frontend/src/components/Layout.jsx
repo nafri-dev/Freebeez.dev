@@ -6,29 +6,29 @@ import { useAuth } from "../contexts/AuthContext"
 import {
   HomeIcon,
   PlusIcon,
+  DocumentTextIcon,
+  CameraIcon,
   ChartBarIcon,
   CogIcon,
-  DocumentTextIcon,
   Bars3Icon,
   XMarkIcon,
-  UserCircleIcon,
   ArrowRightOnRectangleIcon,
-  SparklesIcon,
 } from "@heroicons/react/24/outline"
-
-const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
-  { name: "Add Freebie", href: "/add", icon: PlusIcon },
-  { name: "DM Import", href: "/import", icon: DocumentTextIcon },
-  { name: "Analytics", href: "/analytics", icon: ChartBarIcon },
-  { name: "Settings", href: "/settings", icon: CogIcon },
-]
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { user, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
+
+  const navigation = [
+    { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
+    { name: "Add Freebie", href: "/add", icon: PlusIcon },
+    { name: "DM Import", href: "/dm-import", icon: DocumentTextIcon },
+    { name: "OCR Upload", href: "/ocr-upload", icon: CameraIcon },
+    { name: "Analytics", href: "/analytics", icon: ChartBarIcon },
+    { name: "Settings", href: "/settings", icon: CogIcon },
+  ]
 
   const handleLogout = () => {
     logout()
@@ -38,140 +38,119 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Mobile sidebar */}
-      <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? "block" : "hidden"}`}>
+      <div className={`fixed inset-0 z-40 lg:hidden ${sidebarOpen ? "" : "hidden"}`}>
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
-        <div className="fixed inset-y-0 left-0 flex w-64 flex-col bg-white shadow-xl">
-          <div className="flex h-16 items-center justify-between px-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
-                <SparklesIcon className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                InstaVault
-              </span>
-            </div>
-            <button onClick={() => setSidebarOpen(false)} className="text-gray-400 hover:text-gray-600">
-              <XMarkIcon className="w-6 h-6" />
+        <div className="relative flex w-full max-w-xs flex-1 flex-col bg-white">
+          <div className="absolute top-0 right-0 -mr-12 pt-2">
+            <button
+              type="button"
+              className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <XMarkIcon className="h-6 w-6 text-white" />
             </button>
           </div>
-          <nav className="flex-1 px-4 py-4">
-            <ul className="space-y-2">
+          <div className="h-0 flex-1 overflow-y-auto pt-5 pb-4">
+            <div className="flex flex-shrink-0 items-center px-4">
+              <h1 className="text-xl font-bold text-gray-900">InstaVault</h1>
+            </div>
+            <nav className="mt-5 space-y-1 px-2">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href
                 return (
-                  <li key={item.name}>
-                    <Link
-                      to={item.href}
-                      onClick={() => setSidebarOpen(false)}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        isActive
-                          ? "bg-primary-100 text-primary-700"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                      }`}
-                    >
-                      <item.icon className="w-5 h-5" />
-                      {item.name}
-                    </Link>
-                  </li>
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
+                      isActive ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <item.icon className="mr-4 h-6 w-6 flex-shrink-0" />
+                    {item.name}
+                  </Link>
                 )
               })}
-            </ul>
-          </nav>
-          <div className="border-t border-gray-200 p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <UserCircleIcon className="w-8 h-8 text-gray-400" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-                <p className="text-xs text-gray-500">{user?.email}</p>
+            </nav>
+          </div>
+          <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
+            <div className="group block w-full flex-shrink-0">
+              <div className="flex items-center">
+                <div className="ml-3">
+                  <p className="text-base font-medium text-gray-700">{user?.name}</p>
+                  <button
+                    onClick={handleLogout}
+                    className="text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center"
+                  >
+                    <ArrowRightOnRectangleIcon className="mr-1 h-4 w-4" />
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <ArrowRightOnRectangleIcon className="w-4 h-4" />
-              Sign out
-            </button>
           </div>
         </div>
       </div>
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-grow bg-white border-r border-gray-200 shadow-sm">
-          <div className="flex h-16 items-center px-4">
-            <Link to="/dashboard" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
-                <SparklesIcon className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                InstaVault
-              </span>
-            </Link>
-          </div>
-          <nav className="flex-1 px-4 py-4">
-            <ul className="space-y-2">
+        <div className="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white">
+          <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+            <div className="flex flex-shrink-0 items-center px-4">
+              <h1 className="text-xl font-bold text-gray-900">InstaVault</h1>
+            </div>
+            <nav className="mt-5 flex-1 space-y-1 bg-white px-2">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href
                 return (
-                  <li key={item.name}>
-                    <Link
-                      to={item.href}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        isActive
-                          ? "bg-primary-100 text-primary-700"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                      }`}
-                    >
-                      <item.icon className="w-5 h-5" />
-                      {item.name}
-                    </Link>
-                  </li>
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                      isActive ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    }`}
+                  >
+                    <item.icon className="mr-3 h-6 w-6 flex-shrink-0" />
+                    {item.name}
+                  </Link>
                 )
               })}
-            </ul>
-          </nav>
-          <div className="border-t border-gray-200 p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <UserCircleIcon className="w-8 h-8 text-gray-400" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-                <p className="text-xs text-gray-500">{user?.email}</p>
+            </nav>
+          </div>
+          <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
+            <div className="group block w-full flex-shrink-0">
+              <div className="flex items-center">
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-700">{user?.name}</p>
+                  <button
+                    onClick={handleLogout}
+                    className="text-xs font-medium text-gray-500 hover:text-gray-700 flex items-center"
+                  >
+                    <ArrowRightOnRectangleIcon className="mr-1 h-4 w-4" />
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <ArrowRightOnRectangleIcon className="w-4 h-4" />
-              Sign out
-            </button>
           </div>
         </div>
       </div>
 
       {/* Main content */}
       <div className="lg:pl-64">
-        {/* Top bar */}
-        <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-          <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
+        <div className="sticky top-0 z-10 bg-white pl-1 pt-1 sm:pl-3 sm:pt-3 lg:hidden">
+          <button
+            type="button"
+            className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            onClick={() => setSidebarOpen(true)}
+          >
             <Bars3Icon className="h-6 w-6" />
           </button>
-
-          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <div className="flex flex-1"></div>
-            <div className="flex items-center gap-x-4 lg:gap-x-6">
-              <div className="flex items-center gap-2">
-                <UserCircleIcon className="w-8 h-8 text-gray-400" />
-                <span className="text-sm font-medium text-gray-900">{user?.name}</span>
-              </div>
-            </div>
-          </div>
         </div>
-
-        {/* Page content */}
-        <main className="py-8">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+        <main className="flex-1">
+          <div className="py-6">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+          </div>
         </main>
       </div>
     </div>
