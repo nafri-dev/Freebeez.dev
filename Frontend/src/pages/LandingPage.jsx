@@ -18,11 +18,11 @@ const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const shareOnLinkedIn = () => {
-    window.open("https://linkedin.com/shareArticle?mini=true&url=https://www.linkedin.com/posts/mohamedirfandev_javascript-html-css-activity-7238164522786570240-5DM5?utm_source=share&utm_medium=member_desktop&rcm=ACoAADvd88MB-7WJa7vXt8jbIi4QHb6BOK06Nac", "_blank")
+    window.open("https://www.linkedin.com/posts/mohamedirfandev_launch-freebeez-reactjs-activity-7345458165871726594-kZVo?utm_source=share&utm_medium=member_desktop&rcm=ACoAADvd88MB-7WJa7vXt8jbIi4QHb6BOK06Nac", "_blank")
   }
 
   const starOnGitHub = () => {
-    window.open("https://github.com/nafri-dev/instavault", "_blank")
+    window.open("https://github.com/nafri-dev/Freebeez.dev", "_blank")
   }
 
   return (
