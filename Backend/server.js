@@ -7,19 +7,19 @@ require("dotenv").config()
 
 const app = express()
 
-// Security middleware
-app.use(helmet())
 app.use(
   cors({
-    origin:[ process.env.VITE_FRONTEND_URL || "http://localhost:5173","https://freebeez-dev.vercel.app/" ,"https://freebeez-dev-31lo.vercel.app/api"
-      
-     ],
-    optionsSuccessStatus: 200,
+    origin: [
+      process.env.VITE_FRONTEND_URL || "http://localhost:5173",
+      "https://freebeez-dev.vercel.app", // ✅ FIX: remove trailing slash
+    ],
     credentials: true,
-     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }),
-)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ✅ Add OPTIONS for preflight
+    allowedHeaders: ['Content-Type', 'Authorization'],     // ✅ This is fine
+    optionsSuccessStatus: 200, // ✅ OK for legacy browsers
+  })
+);
+
 
 // Rate limitings
 const limiter = rateLimit({
